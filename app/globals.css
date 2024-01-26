@@ -19,6 +19,7 @@
 body {
   /* color: rgb(var(--foreground-rgb)); */
   background: radial-gradient(#F2ECFF, #FFFFFF 70%, #F7E6F4);
+  overflow-x: hidden;
   /* background: linear-gradient(
       to bottom,
       transparent,
@@ -32,15 +33,20 @@ body {
     text-wrap: balance;
   }
 }
+.vertical-timeline::before{
+  height:95%!important;
+}
 .vertical-timeline-element-content-arrow{
   border-right:none!important;
 }
 .vertical-timeline-element-content{
-  border-top: 4px solid #CDCDCD; 
+  border-top: 4px solid #CDCDCD;
+  box-shadow:none!important;
+  -webkit-box-shadow:none!important;
 }
 .vertical-timeline-element-content:hover{
   border-top: 4px solid #FFC93E;
-  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.06);
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.06)!important;
 }
 
 .vertical-timeline-element:hover .vertical-timeline-element-icon {

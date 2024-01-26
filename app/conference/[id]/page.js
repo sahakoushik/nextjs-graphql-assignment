@@ -3,197 +3,174 @@ import Image from 'next/image'
 import GlobalApi from '@/app/_utils/GlobalApi'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
+import Loading from '@/app/components/Loading'
 
-const imageLoader = ({ src, width, quality }) => {
-    return `https://example.com/${src}?w=${width}&q=${quality || 75}`
-}
 
 const ConferenceList = ({params}) => {
-    const [conferenceDetails, setConferenceDetails] = useState('')
+    const [conferenceDetails, setConferenceDetails] = useState('');
+    const [selected, setSelected] = useState('');
+    
     useEffect(() => {
-        console.log(params);
         params && getConferenceDataById()
+
+    
     }, [params])
     
     const getConferenceDataById = () =>{
         GlobalApi.getConferenceById(params.id).then(resp=> setConferenceDetails(resp.conference))
     }
-  return (
-    // console.log('cd', conferenceDetails),
-    <div>
-        <div className='flex flex-row'>
-            <div>Schedules</div>
-            <div className='flex-1'>
-            {
-                conferenceDetails?.schedules?.map((item)=>{
-                    return(
-                        <div className='flex flex-col bg-white px-10 py-6 my-6 rounded'>
-                            <div className='text-xl font-bold'>{item.day}</div>
-                            {
-                                item.intervals.map((item)=>{
-                                    return(
-                                        item.sessions.map((item)=>{
-                                            return(
-                                                <div className='py-2'>
-                                                    <div className='text-[#0A142F]'> Duration : {item.begin} - {item.end}</div>
-                                                    
-                                                    <ul className="list-disc pl-8">
-                                                        <li className='text-[#0A142F]'>{item.title}</li>
-                                                    </ul>
-                                                </div>
-                                            )
-                                        })
-                                    )
-                                })
-                            }
-                        </div>
-                    )
-                })
-            }
-            </div> 
-        </div>
 
-        <div className='flex flex-row'>
-            <div>organizers</div>
-            <div className='flex-1'>
+    return (
+        console.log(conferenceDetails),
+        <div className='p-32 bg-white'>
             {
-                conferenceDetails?.organizers?.map((item)=>{
-                    return(
-                        <div className='flex flex-row bg-white items-center my-6 rounded'>
-                            <Image
-                                className='p-4 rounded-lg'
-                                src={item.image.url} 
-                                width={140} 
-                                height={140}
-                            />
-                            <div className='flex flex-col'>
-                                <div className='text-xl font-bold mb-5'>{item.name}</div>
-                                <div>{item.about}</div>
-                            </div>
-                        </div>
-                    )
-                })
-            }
-            </div> 
-        </div>
-        
-        <div className='flex flex-row'>
-            <div>sponsors</div>
-            <div className='flex-1'>
-            {
-                conferenceDetails?.sponsors?.map((item)=>{
-                    return(
-                        <div className='flex flex-row bg-white items-center my-6 rounded'>
-                            <Image
-                                className='p-4 rounded-lg'
-                                src={item.image.url} 
-                                width={140} 
-                                height={140}
-                            />
-                            <div className='flex flex-col'>
-                                <div className='text-xl font-bold mb-5'>{item.name}</div>
-                                <div>{item.about}</div>
-                            </div>
-                        </div>
-                    )
-                })
-            }
-            </div> 
-        </div>
+                conferenceDetails ?
+                <>
+                    <div className='text-[48px] font-bold'>{conferenceDetails.name}</div>
+                    <div className='text-[20px] text-[#0a142fd9]'>{conferenceDetails.slogan}</div>
 
-        <div className='flex flex-row'>
-            <div>allSpeakers</div>
-            <div className='flex-1'>
-            {
-            conferenceDetails?.allSpeakers?.map((item)=>{
-                return(
-                    <div className='flex flex-row'>
-                        <Image
-                            src={item.image.url} 
-                            width={140} 
-                            height={140}
-                        />
-                        <div className='flex flex-col'>
-                            <div className='flex flex-row'>
-                                <div className='flex-1'>{item.name}</div>
-                                <div>images</div>
+                    <div className='flex gap-12'>
+                        <div>
+                            <div onClick={()=> setSelected("schedules")} className={`w-[365px] mb-4 cursor-pointer flex items-center h-[72px] rounded-lg border ${selected === "schedules" && 'bg-[#FFC93E]'}`}>
+                                <div className='rounded ml-4 mr-8 bg-[#FFFCF6] size-[56px] flex justify-center items-center'>
+                                    <Image src="/Vector.svg" height={25} width={23}/>
+                                </div>
+                                <div className={`text-center font-bold text-[#0A142F] ${selected === "schedules" && 'text-white'}`}>Schedules</div>
                             </div>
-                            <div>{item.about}</div>
+                            <div onClick={()=> setSelected("organizers")} className={`w-[365px] mb-4 cursor-pointer flex items-center h-[72px] rounded-lg border ${selected === "organizers" && 'bg-[#FFC93E]'}`}>
+                                <div className='rounded ml-4 mr-8 bg-[#FFFCF6] size-[56px] flex justify-center items-center'>
+                                    <Image src="/Vector.svg" height={25} width={23}/>
+                                </div>
+                                <div className={`text-center font-bold text-[#0A142F] ${selected === "organizers" && 'text-white'}`}>Organizers</div>
+                            </div>
+                            <div onClick={()=> setSelected("allSpeakers")} className={`w-[365px] mb-4 cursor-pointer flex items-center h-[72px] rounded-lg border ${selected === "allSpeakers" && 'bg-[#FFC93E]'}`}>
+                                <div className='rounded ml-4 mr-8 bg-[#FFFCF6] size-[56px] flex justify-center items-center'>
+                                    <Image src="/Vector.svg" height={25} width={23}/>
+                                </div>
+                                <div className={`text-center font-bold text-[#0A142F] ${selected === "allSpeakers" && 'text-white'}`}>Speakers</div>
+                            </div>
+                            <div onClick={()=> setSelected("sponsors")} className={`w-[365px] mb-4 cursor-pointer flex items-center h-[72px] rounded-lg border ${selected === "sponsors" && 'bg-[#FFC93E]'}`}>
+                                <div className='rounded ml-4 mr-8 bg-[#FFFCF6] size-[56px] flex justify-center items-center'>
+                                    <Image src="/Vector.svg" height={25} width={23}/>
+                                </div>
+                                <div className={`text-center font-bold text-[#0A142F] ${selected === "sponsors" && 'text-white'}`}>Sponsors</div>
+                            </div>
                         </div>
+
+                        <div className='flex-1 bg-[#F9FAFB] p-[52px]'>
+
+                        {/* Schedules     */}
+
+                        {
+                            selected === "schedules" &&
+                            conferenceDetails?.schedules?.map((item)=>{
+                                return(
+                                    <div className='flex flex-col bg-white px-10 py-6 my-6 rounded'>
+                                        <div className='text-xl font-bold'>{item.day}</div>
+                                        {
+                                            item.intervals.map((item)=>{
+                                                return(
+                                                    item.sessions.map((item)=>{
+                                                        return(
+                                                            <div className='py-2'>
+                                                                <div className='text-[#0A142F]'> Duration : {item.begin} - {item.end}</div>
+                                                                
+                                                                <ul className="list-disc pl-8">
+                                                                    <li className='text-[#0A142F]'>{item.title}</li>
+                                                                </ul>
+                                                            </div>
+                                                        )
+                                                    })
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                )
+                            })
+                        }
+
+                        {/* organizers */}
+
+                        {
+                            selected === "organizers" &&
+                            conferenceDetails?.organizers?.map((item)=>{
+                                return(
+                                    <div className='flex flex-row bg-white items-center my-6 rounded'>
+                                        <img
+                                            className='p-4 rounded-lg'
+                                            src={item.image.url}
+                                            width={140} 
+                                            height={140}
+                                            alt="img"
+                                        />
+                                        <div className='flex flex-col p-4'>
+                                            <div className='text-xl font-bold mb-5'>{item.name}</div>
+                                            <div>{item.about}</div>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
+
+                        {/* sponsors  */}
+
+                        {
+                            selected === "sponsors" &&
+                            conferenceDetails?.sponsors?.map((item)=>{
+                                return(
+                                    <div className='flex flex-row bg-white items-center my-6 rounded'>
+                                        <img
+                                            className='p-4 rounded-lg'
+                                            src={item.image.url}
+                                            width={140} 
+                                            height={140}
+                                            alt="img"
+                                        />
+                                        <div className='flex flex-col p-4'>
+                                            <div className='text-xl font-bold mb-5'>{item.name}</div>
+                                            <div>{item.about}</div>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
+
+                        {/* allSpeakers */}
+
+                        {
+                            selected === "allSpeakers" &&
+                            conferenceDetails?.allSpeakers?.map((item)=>{
+                                return(
+                                    <div className='flex flex-row bg-white items-center my-6 rounded'>
+                                        <img
+                                            className='p-4 rounded-lg'
+                                            src={item.image.url}
+                                            width={140} 
+                                            height={140}
+                                            alt="img"
+                                        />
+                                        <div className='flex flex-col p-4'>
+                                            <div className='flex flex-row'>
+                                                <div className='text-xl flex-1 font-bold mb-5'>{item.name}</div>
+                                                <div>images</div>
+                                            </div>
+                                            <div>{item.about}</div>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
+                        </div> 
                     </div>
-                )
-            })
-        }
-            </div> 
-        </div>
-{/*         
-        <div className='flex  flex-row'>
-            <div>Organizers</div>
-            {
-                conferenceDetails?.organizers?.map((item)=>{
-                    return(
-                        <div className='flex flex-row'>
-                            <Image
-                                src={item.image.url} 
-                                width={140} 
-                                height={140}
-                            />
-                            <div className='flex flex-col'>
-                                <div>{item.name}</div>
-                                <div>{item.about}</div>
-                            </div>
-                        </div>
-                    )
-                })
+                </>  
+                :
+                <div className='h-screen'>
+                    <Loading/>
+                </div>
             }
+            
         </div>
-        <div className='flex  flex-row'>
-            <div>Sponsors</div>
-            {
-                conferenceDetails?.sponsors?.map((item)=>{
-                    return(
-                        <div className='flex flex-row'>
-                            <Image
-                                src={item.image.url} 
-                                width={140} 
-                                height={140}
-                            />
-                            <div className='flex flex-col'>
-                                <div>{item.name}</div>
-                                <div>{item.about}</div>
-                            </div>
-                        </div>
-                    )
-                })
-            }
-        </div>
-
-        <div className='flex  flex-row'> 
-        
-        <div>Speakers</div>
-        {
-            conferenceDetails?.allSpeakers?.map((item)=>{
-                return(
-                    <div className='flex flex-row'>
-                        <Image
-                            src={item.image.url} 
-                            width={140} 
-                            height={140}
-                        />
-                        <div className='flex flex-col'>
-                            <div className='flex flex-row'>
-                                <div className='flex-1'>{item.name}</div>
-                                <div>images</div>
-                            </div>
-                            <div>{item.about}</div>
-                        </div>
-                    </div>
-                )
-            })
-        }
-        </div> */}
-    </div>
-  )
+    )
 }
 
 export default ConferenceList

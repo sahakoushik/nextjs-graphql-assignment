@@ -46,6 +46,8 @@ const getConferenceById = async (id)=>{
     const query= gql`{
         conference(id: "${id}") {
           id
+          name
+          slogan
           organizers {
             name
             about
