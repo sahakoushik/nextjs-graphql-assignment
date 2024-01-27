@@ -15,29 +15,27 @@ const removeDuplicates =(array, property) => {
     });
 }
 
-  const getSponsors = (conferenceData, sponsorType, property) => {
-    const sponsors =  conferenceData.flatMap((conference) => conference[sponsorType])
-    return removeDuplicates(sponsors, property)
+const getSponsors = (conferenceData, sponsorType, property) => {
+  const sponsors =  conferenceData.flatMap((conference) => conference[sponsorType])
+  return removeDuplicates(sponsors, property)
 }
 
 const goldSponsors = getSponsors(conferenceData, 'goldSponsors', 'name');
 const silverSponsors = getSponsors(conferenceData, 'silverSponsors', 'name');
 const bronzeSponsors = getSponsors(conferenceData, 'bronzeSponsors', 'name');
-const platformSponsors = getSponsors(conferenceData, 'platformSponsors', 'name');
 
 
-console.log('Gold Sponsors:', goldSponsors);
-console.log('Silver Sponsors:', silverSponsors);
-console.log('Bronze Sponsors:', bronzeSponsors);
-console.log('Platform Sponsors:', platformSponsors);
+// console.log('Gold Sponsors:', goldSponsors);
+// console.log('Silver Sponsors:', silverSponsors);
+// console.log('Bronze Sponsors:', bronzeSponsors);
 
-  return (
+return (
     <div className='py-[100px] bg-[#F9FAFB] w-full'>
-        <div className='font-bold text-[48px] text-center'>Our Sponsor</div>
+      <div className='font-bold text-[48px] text-center'>Our Sponsor</div>
 
-        <Sponsor title="🥇 Gold Sponsor" sponsorList={goldSponsors}/>
-        <Sponsor title="🥈Silver Sponsors" sponsorList={silverSponsors}/>
-        <Sponsor title="🥉Bronze Sponsors" sponsorList={bronzeSponsors}/>
+      <Sponsor title="🥇 Gold Sponsor" sponsorList={goldSponsors}/>
+      <Sponsor title="🥈 Silver Sponsors" sponsorList={silverSponsors}/>
+      <Sponsor title="🥉 Bronze Sponsors" sponsorList={bronzeSponsors}/>
     </div>
   )
 }

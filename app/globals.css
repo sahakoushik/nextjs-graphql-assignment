@@ -45,7 +45,7 @@ body {
   -webkit-box-shadow:none!important;
 }
 .vertical-timeline-element-content:hover{
-  border-top: 4px solid #FFC93E;
+  border-top: 4px solid #FFC93E!important;
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.06)!important;
 }
 
@@ -59,4 +59,19 @@ body {
 .vertical-timeline::before{
   background: #CDCDCD!important;
   top: 40px!important;
+}
+
+@media only screen and (max-width: 1168px) {
+  .vertical-timeline-element{
+    margin:3rem 0!important;
+  }
+  .vertical-timeline-element-date{
+    position: absolute;
+    top:-40px;
+  }
+  .vertical-timeline::before{
+    height:88%!important;
+    top: 80px!important;
+
+  }
 }
