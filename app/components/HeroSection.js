@@ -25,7 +25,7 @@ const HeroSection = ({scrollToTimeline}) => {
             </div>
             <div className='m-auto lg:m-0 lg:-mr-28 my-8 lg:-mt-64 relative'>
                 <img className='w-auto h-auto lg:w-[70%] lg:h-[70%] lg:mt-36 xl:w-[90%] xl:h-[90%] xl:mt-24 2xl:mt-0 2xl:w-auto 2xl:h-auto' src="/hero2.svg" alt="static image"/>
-                <Image width={131} height={131} className='absolute -bottom-[70px] right-[-58px] lg:-left-[58px] ' src="/star.svg" alt="star"/>
+                <img width={131} height={131} className='absolute -bottom-[70px] right-[-58px] lg:-left-[58px] ' src="/star.svg" alt="star"/>
             </div>
         </div>
         <div className='hidden lg:flex justify-center -rotate-90 pl-32 cursor-pointer' onClick={scrollToTimeline}>
