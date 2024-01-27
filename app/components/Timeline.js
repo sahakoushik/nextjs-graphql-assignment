@@ -11,7 +11,7 @@ import 'react-vertical-timeline-component/style.min.css';
 const Timeline = forwardRef(({ conferences }, ref) => {
 
     return (
-        <div className="px-6 lg:px-24 pt-24 bg-[#fff] -z-[111]" ref={ref}>
+        <div className="px-6 lg:px-24 pt-24 bg-[#fff]" ref={ref}>
           <div className="font-bold text-5xl text-center p-8 text-[#0A142F]">Conferences</div>
           <VerticalTimeline>
             {conferences.map((item) => {

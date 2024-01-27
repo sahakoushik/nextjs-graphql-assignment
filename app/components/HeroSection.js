@@ -18,10 +18,10 @@ const HeroSection = ({scrollToTimeline}) => {
             </div>
         </div>
 
-        <div className='flex flex-col-reverse lg:flex-row justify-evenly'>
+        <div className='flex flex-col-reverse lg:flex-row justify-evenly z-[111] pb-20'>
             <div className='ml-6 lg:ml-0 mr-0 lg:mr-80 mt-8 lg:-mt-32 relative'>
                 <img className='w-auto h-auto lg:w-[70%] lg:h-[70%] lg:mt-36 xl:w-[90%] xl:h-[90%] xl:mt-24 2xl:mt-0 2xl:w-auto 2xl:h-auto' src="/hero1.svg" alt="static image"/>
-                <Image width={189} height={189} className='absolute -bottom-[80px] -z-50 -right-[58px]' src="/circle1.svg" alt="circle"/>
+                <Image width={189} height={189} className='absolute -bottom-[80px] z-[-1] -right-[58px]' src="/circle1.svg" alt="circle"/>
             </div>
             <div className='m-auto lg:m-0 lg:-mr-28 my-8 lg:-mt-64 relative'>
                 <img className='w-auto h-auto lg:w-[70%] lg:h-[70%] lg:mt-36 xl:w-[90%] xl:h-[90%] xl:mt-24 2xl:mt-0 2xl:w-auto 2xl:h-auto' src="/hero2.svg" alt="static image"/>
