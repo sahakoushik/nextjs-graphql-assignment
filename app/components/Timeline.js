@@ -48,4 +48,5 @@ const Timeline = forwardRef(({ conferences }, ref) => {
     )
 })
 
+App.displayName = 'Timeline';
 export default Timeline
